@@ -1,4 +1,4 @@
-package com.example.flutter_chat_app;
+package com.kng.flutter_chat;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

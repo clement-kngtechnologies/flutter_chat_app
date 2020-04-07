@@ -4,6 +4,7 @@ import 'package:flutter_chat_app/pages/registration_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences.getInstance().then((prefs) {
     runApp(LandingPage(prefs: prefs));
   });

@@ -9,7 +9,9 @@ class ChatPage extends StatefulWidget {
   final SharedPreferences prefs;
   final String chatId;
   final String title;
-  ChatPage({this.prefs, this.chatId,this.title});
+
+  ChatPage({this.prefs, this.chatId, this.title});
+
   @override
   ChatPageState createState() {
     return new ChatPageState();
@@ -17,11 +19,10 @@ class ChatPage extends StatefulWidget {
 }
 
 class ChatPageState extends State<ChatPage> {
-  final db = Firestore.instance;
+  final Firestore db = Firestore.instance;
   CollectionReference chatReference;
-  final TextEditingController _textController =
-      new TextEditingController();
-  bool _isWritting = false;
+  final TextEditingController _textController = new TextEditingController();
+  bool _isWriting = false;
 
   @override
   void initState() {
@@ -162,7 +163,8 @@ class ChatPageState extends State<ChatPage> {
         child: new Column(
           children: <Widget>[
             StreamBuilder<QuerySnapshot>(
-              stream: chatReference.orderBy('time',descending: true).snapshots(),
+              stream:
+                  chatReference.orderBy('time', descending: true).snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (!snapshot.hasData) return new Text("No Chat");
@@ -191,16 +193,14 @@ class ChatPageState extends State<ChatPage> {
   IconButton getDefaultSendButton() {
     return new IconButton(
       icon: new Icon(Icons.send),
-      onPressed: _isWritting
-          ? () => _sendText(_textController.text)
-          : null,
+      onPressed: _isWriting ? () => _sendText(_textController.text) : null,
     );
   }
 
   Widget _buildTextComposer() {
     return new IconTheme(
         data: new IconThemeData(
-          color: _isWritting
+          color: _isWriting
               ? Theme.of(context).accentColor
               : Theme.of(context).disabledColor,
         ),
@@ -235,7 +235,7 @@ class ChatPageState extends State<ChatPage> {
                   controller: _textController,
                   onChanged: (String messageText) {
                     setState(() {
-                      _isWritting = messageText.length > 0;
+                      _isWriting = messageText.length > 0;
                     });
                   },
                   onSubmitted: _sendText,
@@ -263,7 +263,7 @@ class ChatPageState extends State<ChatPage> {
       'time': FieldValue.serverTimestamp(),
     }).then((documentReference) {
       setState(() {
-        _isWritting = false;
+        _isWriting = false;
       });
     }).catchError((e) {});
   }

@@ -219,6 +219,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             onTap: () async {
+              // Get a chat from this user to the other user
               QuerySnapshot result = await db
                   .collection('chats')
                   .where('contact1', isEqualTo: widget.prefs.getString('uid'))
@@ -226,6 +227,7 @@ class _HomePageState extends State<HomePage> {
                   .getDocuments();
               List<DocumentSnapshot> documents = result.documents;
               if (documents.length == 0) {
+                // Get a chat from another user to this user
                 result = await db
                     .collection('chats')
                     .where('contact2', isEqualTo: widget.prefs.getString('uid'))

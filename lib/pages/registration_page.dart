@@ -43,6 +43,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           timeout: const Duration(seconds: 20),
           verificationCompleted: (AuthCredential phoneAuthCredential) {
             print(phoneAuthCredential);
+            print("Auth complete");
           },
           verificationFailed: (AuthException e) {
             print('${e.message}');
